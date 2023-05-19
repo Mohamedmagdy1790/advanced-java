@@ -10,15 +10,15 @@ public class App {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      String dburl="jdbc:mysql://localhost:3306/people?serverTimezone=UTC";
+      Class.forName("org.sqlite.JDBC");
+      String dburl="jdbc:sqlite:people.db";
       
-      Connection connc= DriverManager.getConnection(dburl,"root","hello");
+      Connection connc= DriverManager.getConnection(dburl);
       System.out.println(connc);
       
       Statement stmt =connc.createStatement();
       System.out.println(stmt);
-      //connc.setAutoCommit(false);
+      connc.setAutoCommit(false);
       
       var sql ="create table if not exists user (id integer primary key, name text not null)";
       stmt.execute(sql);
@@ -41,7 +41,7 @@ public class App {
     	    
       }
       
-      //connc.commit();
+      connc.commit();
 
       
       insertstmt.close();
@@ -59,7 +59,8 @@ public class App {
       }
       
       
-     
+      sql= "drop table user";
+      //stmt.execute(sql);
       
       
       
